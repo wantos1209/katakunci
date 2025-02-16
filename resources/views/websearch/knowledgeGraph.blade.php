@@ -8,24 +8,24 @@
             <h3>{{ $title }} Form</h3>
             <span>Edit Data</span>
         </div>
-        <form action="/site/edit/{{ $id }}" method="POST" enctype="multipart/form-data">
+        <form action="/websearch/edit/{{ $id }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="list_form">
-                <span class="sec_label">Name</span>
-                <input type="text" id="name" name="name" value="{{ $data->name }}">
+                <span class="sec_label">Title</span>
+                <input type="text" id="title" name="title" value="{{ $data->title }}">
             </div>
             <div class="list_form">
-                <span class="sec_label">Type</span>
-                <select id="jenis" name="jenis">
-                    {{-- <option class="sec_selected" value="" selected place>Selected type</option> --}}
-                    <option value=1 {{ $data->jenis == 1 ? 'seleced' : ''  }}>website</option>
-                    <option value=2 {{ $data->jenis == 2 ? 'seleced' : ''  }}>non-website</option>
-                </select>
+                <span class="sec_label">Description</span>
+                <textarea id="description" name="description" row="5">{{ $data->description }}</textarea>
+            </div>
+            <div class="list_form">
+                <span class="sec_label">Title</span>
+                <input type="text" id="title" name="title" value="{{ $data->title }}">
             </div>
             
             <div class="sec_button_form">
                 <button class="sec_botton btn_submit" type="submit" id="" name="">Submit</button>
-                <a href="/site"><button class="sec_botton btn_cancel" type="button">Cancel</button></a>
+                <a href="/websearch"><button class="sec_botton btn_cancel" type="button">Cancel</button></a>
             </div>
         </form>
     </div>
@@ -52,5 +52,6 @@
         });
     @endif
 </script>
+
 
 @endsection

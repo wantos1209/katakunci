@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('organic', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('websearch_id')->unsigned();
-            $table->string('title');
-            $table->string('link');
-            $table->string('snippet');
-            $table->string('iconUrl');
-            $table->integer('position');
+            $table->string('title')->nullable();
+            $table->string('link')->nullable();
+            $table->string('snippet')->nullable();
+            $table->string('iconUrl')->nullable();
+            $table->integer('position')->nullable();
             $table->timestamps();
             $table->index('websearch_id');
             $table->foreign('websearch_id')->references('id')->on('websearch')

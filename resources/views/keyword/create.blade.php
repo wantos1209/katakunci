@@ -6,26 +6,20 @@
     <div class="sec_form">
         <div class="sec_head_form">
             <h3>{{ $title }} Form</h3>
-            <span>Edit Data</span>
+            <span>Add Data</span>
         </div>
-        <form action="/site/edit/{{ $id }}" method="POST" enctype="multipart/form-data">
+        <form action="/keyword/create" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="list_form">
-                <span class="sec_label">Name</span>
-                <input type="text" id="name" name="name" value="{{ $data->name }}">
+                <span class="sec_label">Key</span>
+                <input type="text" id="key" name="key">
             </div>
-            <div class="list_form">
-                <span class="sec_label">Type</span>
-                <select id="jenis" name="jenis">
-                    {{-- <option class="sec_selected" value="" selected place>Selected type</option> --}}
-                    <option value=1 {{ $data->jenis == 1 ? 'seleced' : ''  }}>website</option>
-                    <option value=2 {{ $data->jenis == 2 ? 'seleced' : ''  }}>non-website</option>
-                </select>
-            </div>
-            
+            {{-- <span class="text-warning-1">
+                <strong>Perhatian:</strong> Gunakan tanda titik koma (<code> ; </code>) untuk memisahkan input jika Anda ingin menambahkan beberapa data sekaligus. Contoh: <code>arwanatoto; jeeptoto; doyantoto</code>
+            </span> --}}
             <div class="sec_button_form">
                 <button class="sec_botton btn_submit" type="submit" id="" name="">Submit</button>
-                <a href="/site"><button class="sec_botton btn_cancel" type="button">Cancel</button></a>
+                <a href="/keyword"><button class="sec_botton btn_cancel" type="button">Cancel</button></a>
             </div>
         </form>
     </div>

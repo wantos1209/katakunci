@@ -1016,6 +1016,52 @@ form {
 .list_form input:hover {
   border: 1px solid rgba(var(--rgba-primary));
 }
+
+.select2-container {
+  width: 100% !important;
+}
+
+.select2-container--default .select2-selection--multiple {
+  width: 100% !important;
+  border-radius: 0 6px 6px 0 !important;
+  padding: 10px !important;
+  background: rgba(var(--rgba-primary-bg-color)) !important;
+  color: rgba(var(--rgba-white)) !important;
+  outline: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  border: 1px solid transparent !important;
+  transition: all 0.3s ease !important;
+}
+
+.select2-container--default
+  .select2-selection--multiple
+  .select2-selection__choice {
+  background: rgba(var(--rgba-primary)) !important;
+}
+
+.select2-container--default
+  .select2-selection--multiple
+  .select2-selection__choice__remove {
+  color: rgba(var(--rgba-white)) !important;
+  cursor: pointer !important;
+}
+
+.select2-container--default
+  .select2-results__option--highlighted.select2-results__option--selectable {
+  background: rgba(var(--rgba-primary)) !important;
+  color: white !important;
+}
+
+.select2-dropdown {
+  background: rgba(var(--rgba-primary-bg-color)) !important;
+  border: var(--border-primary) !important;
+}
+
+.select2-container--default .select2-results__option--selected {
+  background: rgba(var(--rgba-primary)) !important;
+}
+
 select {
   width: 100%;
   border-radius: 0 6px 6px 0;
@@ -1621,4 +1667,8 @@ option.sec_selected {
   border: 1px solid rgba(var(--rgba-primary));
   box-shadow: 0 0 20px rgba(var(--rgba-primary), 0.5),
     inset 0 0 10px rgba(var(--rgba-primary));
+}
+
+.text-warning-1 {
+  font-size: 12px;
 }

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('preview', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('websearch_id')->unsigned();
-            $table->string('title');
-            $table->string('link');
+            $table->string('title')->nullable();
+            $table->string('link')->nullable();
             $table->timestamps();
             $table->index('websearch_id');
             $table->foreign('websearch_id')->references('id')->on('websearch')

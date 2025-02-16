@@ -9,7 +9,7 @@
     <title>Dashboard | L21</title>
     <link rel="stylesheet" href="/assets/style.css" />
     <link rel="stylesheet" href="/assets/design.css" />
-    <link rel="stylesheet" href="/assets/custom_dash.css" />
+    {{-- <link rel="stylesheet" href="/assets/custom_dash.css" /> --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css" />
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
@@ -21,6 +21,10 @@
             adjustElementSize();
         });
     </script>
+
+    {{-- CDN SELECT MULTIPLE--}}
+    <link href="/assets/select-assets/select2.min.css" rel="stylesheet" />
+    <script src="/assets/select-assets/select2.min.js"></script>
 </head>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 
