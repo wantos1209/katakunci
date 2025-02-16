@@ -12,7 +12,7 @@
             @csrf
             <div class="list_form">
                 <span class="sec_label">Name</span>
-                <input type="text" id="name" name="name">
+                <input type="text" id="name" name="name" placeholder="Input Name Site">
             </div>
             <div class="list_form">
                 <span class="sec_label">Type</span>

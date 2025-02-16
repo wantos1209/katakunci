@@ -12,7 +12,7 @@
             @csrf
             <div class="list_form">
                 <span class="sec_label">Key</span>
-                <input type="text" id="key" name="key">
+                <input type="text" id="key" name="key" placeholder="Input Keyword">
             </div>
             {{-- <span class="text-warning-1">
                 <strong>Perhatian:</strong> Gunakan tanda titik koma (<code> ; </code>) untuk memisahkan input jika Anda ingin menambahkan beberapa data sekaligus. Contoh: <code>arwanatoto; jeeptoto; doyantoto</code>

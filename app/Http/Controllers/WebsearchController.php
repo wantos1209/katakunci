@@ -156,8 +156,38 @@ class WebsearchController extends Controller
     public function editKnowledgeGraph($id)
     {
         $data = Knowledgegraph::where('websearch_id', $id)->first();
-        return view('websearch.knowledgeGraph', [
+        return view('websearch.knowledgegraph', [
             'title' => 'Knowledge Graph',
+            'data' => $data,
+            'id' => $id
+        ]);
+    }
+
+    public function editOrganic($id)
+    {
+        $data = Organic::where('websearch_id', $id)->first();
+        return view('websearch.organic', [
+            'title' => 'Organic',
+            'data' => $data,
+            'id' => $id
+        ]);
+    }
+
+    public function editPreview($id)
+    {
+        $data = Preview::where('websearch_id', $id)->first();
+        return view('websearch.preview', [
+            'title' => 'Preview',
+            'data' => $data,
+            'id' => $id
+        ]);
+    }
+
+    public function ediRelatedSearch($id)
+    {
+        $data = RelatedSearch::where('websearch_id', $id)->first();
+        return view('websearch.relatedsearch', [
+            'title' => 'Related Search',
             'data' => $data,
             'id' => $id
         ]);

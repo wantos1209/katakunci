@@ -50,4 +50,13 @@ Route::middleware(['auth'])->group(function () {
 
     /* Knowledge Graph */
     Route::get('/knowledgegraph/edit/{id}', [WebsearchController::class, 'editKnowledgeGraph']);
+
+    /* Organic */
+    Route::get('/organic/edit/{id}', [WebsearchController::class, 'editOrganic']);
+
+    /* Priview */
+    Route::get('/preview/edit/{id}', [WebsearchController::class, 'editPreview']);
+
+     /* Related Search */
+     Route::get('/relatedsearch/edit/{id}', [WebsearchController::class, 'ediRelatedSearch']);
 });

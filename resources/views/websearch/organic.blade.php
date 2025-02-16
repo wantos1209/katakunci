@@ -8,24 +8,28 @@
             <h3>{{ $title }} Form</h3>
             <span>Edit Data</span>
         </div>
-        <form action="/site/edit/{{ $id }}" method="POST" enctype="multipart/form-data">
+        <form action="/websearch/edit/{{ $id }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="list_form">
-                <span class="sec_label">Name</span>
-                <input type="text" id="name" name="name" value="{{ $data->name }}" placeholder="Input Name Site">
+                <span class="sec_label">Title</span>
+                <input type="text" id="title" name="title" value="{{ $data->title }}" placeholder="Input Title">
             </div>
             <div class="list_form">
-                <span class="sec_label">Type</span>
-                <select id="jenis" name="jenis">
-                    {{-- <option class="sec_selected" value="" selected place>Selected type</option> --}}
-                    <option value=1 {{ $data->jenis == 1 ? 'seleced' : ''  }}>website</option>
-                    <option value=2 {{ $data->jenis == 2 ? 'seleced' : ''  }}>non-website</option>
-                </select>
+                <span class="sec_label">Link</span>
+                <input type="text" id="link" name="link" value="{{ $data->link }}" placeholder="Input Link">
             </div>
-            
+            <div class="list_form">
+                <span class="sec_label">Snippet</span>
+                <input type="text" id="snippet" name="snippet" value="{{ $data->snippet }}" placeholder="Input Url Snippet">
+            </div>
+            <div class="list_form">
+                <span class="sec_label">Icon Url</span>
+                <input type="text" id="iconUrl" name="iconUrl" value="{{ $data->iconUrl }}" placeholder="Input Url Icon Url">
+            </div>
+
             <div class="sec_button_form">
                 <button class="sec_botton btn_submit" type="submit" id="" name="">Submit</button>
-                <a href="/site"><button class="sec_botton btn_cancel" type="button">Cancel</button></a>
+                <a href="/websearch"><button class="sec_botton btn_cancel" type="button">Cancel</button></a>
             </div>
         </form>
     </div>
@@ -52,5 +56,6 @@
         });
     @endif
 </script>
+
 
 @endsection

@@ -38,9 +38,9 @@
                 <td><span class="name">{{ $d->site->name }}</span></td>
                 <td><span class="key">{{ $d->keywordrelation->pluck('key')->implode(', ') }}</span></td>
                 <td><span class="key"><a href="/knowledgegraph/edit/{{ $d->id }}" class="sec_botton btn_blank">Edit Knowledge</a></span></td>
-                <td><span class="key"><button type="submit" class="sec_botton btn_blank">Edit Organic</button></span></td>
-                <td><span class="key"><button type="submit" class="sec_botton btn_blank">Edit Preview</button></span></td>
-                <td><span class="key"><button type="submit" class="sec_botton btn_blank">Edit Related Search</button></span></td>
+                <td><span class="key"><a href="/organic/edit/{{ $d->id }}" class="sec_botton btn_blank">Edit Organic</a></span></td>
+                <td><span class="key"><a href="/preview/edit/{{ $d->id }}" class="sec_botton btn_blank">Edit Preview</a></span></td>
+                <td><span class="key"><a href="/relatedsearch/edit/{{ $d->id }}" class="sec_botton btn_blank">Edit Related Search</a></span></td>
                 
                 <td class="kolom_action">
                     <div class="dot_action">

@@ -8,16 +8,16 @@
             <h3>{{ $title }} Form</h3>
             <span>Edit Data</span>
         </div>
-        <form action="/keyword/edit/{{ $id }}" method="POST" enctype="multipart/form-data">
+        <form action="/websearch/edit/{{ $id }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="list_form">
-                <span class="sec_label">Key</span>
-                <input type="text" id="key" name="key" value="{{ $data->key }}" placeholder="Input Keyword">
+                <span class="sec_label">Query</span>
+                <input type="text" id="query" name="query" value="{{ $data->query }}" placeholder="Input Query">
             </div>
-          
+           
             <div class="sec_button_form">
                 <button class="sec_botton btn_submit" type="submit" id="" name="">Submit</button>
-                <a href="/keyword"><button class="sec_botton btn_cancel" type="button">Cancel</button></a>
+                <a href="/websearch"><button class="sec_botton btn_cancel" type="button">Cancel</button></a>
             </div>
         </form>
     </div>
@@ -44,5 +44,6 @@
         });
     @endif
 </script>
+
 
 @endsection
