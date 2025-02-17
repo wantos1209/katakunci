@@ -8,13 +8,16 @@
             <h3>{{ $title }} Form</h3>
             <span>Edit Data</span>
         </div>
-        <form action="/websearch/edit/{{ $id }}" method="POST" enctype="multipart/form-data">
+        <form action="/relatedsearch/edit/{{ $id }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="list_form">
                 <span class="sec_label">Query</span>
-                <input type="text" id="query" name="query" value="{{ $data->query }}" placeholder="Input Query">
+                <select class="js-example-basic-multiple" name="keyword_id[]" multiple="multiple">
+                    @foreach ($dataKeyword as $keyword)
+                    <option value={{ $keyword->id }} >{{ $keyword->key }}</option>
+                @endforeach
+                  </select>
             </div>
-           
             <div class="sec_button_form">
                 <button class="sec_botton btn_submit" type="submit" id="" name="">Submit</button>
                 <a href="/websearch"><button class="sec_botton btn_cancel" type="button">Cancel</button></a>
@@ -43,6 +46,15 @@
             timer: 3000
         });
     @endif
+</script>
+
+<script>
+    $(document).ready(function() {
+      $('.js-example-basic-multiple').select2();
+
+      var selectedValues = @json($dataKeywordSelected); 
+      $('.js-example-basic-multiple').val(selectedValues).trigger('change');
+  });
 </script>
 
 

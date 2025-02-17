@@ -2,13 +2,29 @@
 
 @section('container')
 
+<style>
+    .button-left {
+        width: "100%";
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+    }
+
+    .shortcut-input {
+        border-top: 1px solid rgba(var(--rgba-primary), 0.2);
+        padding-top: 10px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+</style>
+
 <div class="sec_box hgi-100">
     <div class="sec_form">
         <div class="sec_head_form">
             <h3>{{ $title }} Form</h3>
             <span>Edit Data</span>
         </div>
-        <form action="/websearch/edit/{{ $id }}" method="POST" enctype="multipart/form-data">
+        <form action="/knowledgegraph/edit/{{ $id }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="list_form">
                 <span class="sec_label">Title</span>
@@ -79,6 +95,38 @@
                 <input type="text" id="aplikasiAndroid" name="aplikasiAndroid" value="{{ $data->aplikasiAndroid }}" placeholder="Input Url Aplikasi Android">
             </div>
 
+            
+            <div class="sec_head_form" style="margin-top: 50px">
+                <h3>{{ $title2 }} Form</h3>
+            </div>
+            
+            <div id="dynamic-form">
+                <div class="list_form button-left"><button type="button" id="add-shortcut-btn" class="sec_botton btn_success">Add Shortcut</button></div>
+                <div id="shortcut-fields">
+                    @foreach ($dataShortcut as $index => $shortcut)
+                        <div class="shortcut-input" data-index="{{ $index }}">
+                            <div class="list_form">
+                                <span class="sec_label">Name</span>
+                                <input type="text" name="name_shortcut[{{ $index }}][]" value="{{ $shortcut->name }}" placeholder="Input Name Shortcut" required>
+                            </div>
+                            <div class="shortcut-details">
+                                @foreach ($dataShortcutDetails[$shortcut->id] as $detailIndex => $detail)
+                                    <div class="detail-input list_form">
+                                        <span class="sec_label">Name Detail</span>
+                                        <input type="text" name="name_shortcut_detail[{{ $index }}][]" value="{{ $detail->name }}" placeholder="Input Name Shortcut Detail" required>
+                                        <span class="sec_label">Url</span>
+                                        <input type="text" name="url[{{ $index }}][]" value="{{ $detail->url }}" placeholder="Input Url Shortcut Detail" required>
+                                        <button type="button" class="remove-detail-btn sec_botton btn_danger">Remove</button>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <button type="button" class="add-detail-btn sec_botton btn_success">Add</button>
+                            <button type="button" class="remove-btn sec_botton btn_danger">Remove Shortcut</button>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
             <div class="sec_button_form">
                 <button class="sec_botton btn_submit" type="submit" id="" name="">Submit</button>
                 <a href="/websearch"><button class="sec_botton btn_cancel" type="button">Cancel</button></a>
@@ -108,6 +156,64 @@
         });
     @endif
 </script>
+
+<script>
+    $(document).ready(function () {
+        // Menambahkan shortcut baru
+        $("#add-shortcut-btn").on("click", function () {
+            const shortcutFields = $("#shortcut-fields");
+            const index = shortcutFields.children().length;
+            const newShortcutField = $(`
+                <div class="shortcut-input" data-index="${index}">
+                    <div class="list_form">
+                        <span class="sec_label">Name</span>
+                        <input type="text" name="name_shortcut[${index}][]" placeholder="Input Name Shortcut">
+                    </div>
+                    <div class="shortcut-details">
+                        <div class="detail-input list_form">
+                            <span class="sec_label">Name Detail</span>
+                            <input type="text" name="name_shortcut_detail[${index}][]" placeholder="Input Name Shortcut Detail" required>
+                            <span class="sec_label">Url</span>
+                            <input type="text" name="url[${index}][]" placeholder="Input Url Shortcut Detail" required>
+                            <button type="button" class="remove-detail-btn sec_botton btn_danger">Remove</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-detail-btn sec_botton btn_success">Add</button>
+                    <button type="button" class="remove-btn sec_botton btn_danger">Remove Shortcut</button>
+                </div>
+            `);
+            shortcutFields.append(newShortcutField);
+        });
+
+        // Menangani klik untuk tombol "Add" dan "Remove"
+        $("#shortcut-fields").on("click", ".add-detail-btn", function () {
+            const shortcutInput = $(this).closest(".shortcut-input");
+            const detailsContainer = shortcutInput.find(".shortcut-details");
+            const index = shortcutInput.data("index");
+
+            const newDetailInput = $(`
+                <div class="detail-input list_form">
+                    <span class="sec_label">Name Detail</span>
+                    <input type="text" name="name_shortcut_detail[${index}][]" placeholder="Input Name Shortcut Detail" required>
+                    <span class="sec_label">Url</span>
+                    <input type="text" name="url[${index}][]" placeholder="Input Url Shortcut Detail" required>
+                    <button type="button" class="remove-detail-btn sec_botton btn_danger">Remove</button>
+                </div>
+            `);
+            detailsContainer.append(newDetailInput);
+        });
+
+        // Menghapus shortcut atau detail
+        $("#shortcut-fields").on("click", ".remove-btn", function () {
+            $(this).closest(".shortcut-input").remove();
+        });
+
+        $("#shortcut-fields").on("click", ".remove-detail-btn", function () {
+            $(this).closest(".detail-input").remove();
+        });
+    });
+</script>
+
 
 
 @endsection

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->bigInteger('websearch_id')->unsigned();
             $table->string('title')->nullable();
             $table->string('link')->nullable();
-            $table->string('snippet')->nullable();
+            $table->text('snippet')->nullable();
             $table->string('iconUrl')->nullable();
             $table->integer('position')->nullable();
             $table->timestamps();
