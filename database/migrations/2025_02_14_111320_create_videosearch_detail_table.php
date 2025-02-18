@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('link');
             $table->string('snippet');
             $table->string('imageUrl');
-            $table->string('duration');
+            $table->time('duration')->nullable();
             $table->string('source');
             $table->string('channel');
             $table->date('date');

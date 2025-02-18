@@ -43,11 +43,11 @@
             </div>
 
             <div class="sec_head_form" style="margin-top: 50px">
-                <h3>{{ $title }} Form</h3>
+                <h3>{{ $title2 }} Form</h3>
             </div>
 
             <div id="dynamic-form">
-                <div class="list_form button-left"><button type="button" id="add-organic-btn" class="sec_botton btn_success">Add Organic</button></div>
+                <div class="list_form button-left"><button type="button" id="add-organic-btn" class="sec_botton btn_success">Add Site Link</button></div>
                 <div id="organic-fields">
                     @foreach ($dataOrganicDetail as $index => $organic)
                         <div class="organic-input">

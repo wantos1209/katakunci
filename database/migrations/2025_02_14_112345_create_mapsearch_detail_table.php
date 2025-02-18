@@ -16,8 +16,8 @@ return new class extends Migration
             $table->bigInteger('mapsearch_id')->unsigned();
             $table->string('title');
             $table->string('address');
-            $table->decimal('latitude')->default(0);
-            $table->decimal('longitude')->default(0);
+            $table->string('latitude')->default(null);
+            $table->string('longitude')->default(null);
             $table->decimal('rating')->default(0);
             $table->decimal('ratingCount')->default(0);
             $table->string('category');

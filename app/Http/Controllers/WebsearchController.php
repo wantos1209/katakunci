@@ -24,7 +24,7 @@ class WebsearchController extends Controller
         $data = Websearch::with(['site', 'keywordrelation', 'knowledgegraph.shortcut.shortcutdetail', 'organic.organicdetail', 'preview', 'relatedsearch.keyword'])->orderBy('created_at', 'DESC')->get();
        
         return view('websearch.index', [
-            'title' => 'Websearch',
+            'title' => 'Web Search',
             'data' => $data
         ]);
     }
@@ -35,7 +35,7 @@ class WebsearchController extends Controller
         $keyword = Keyword::all();
 
         return view('websearch.create', [
-            'title' => 'Websearch',
+            'title' => 'Web Search',
             'dataSite' => $site,
             'dataKeyword' => $keyword
         ]);
@@ -48,6 +48,10 @@ class WebsearchController extends Controller
                 'site_id' => 'required|integer|unique:websearch',
                 'keyword_id' => 'required|array', 
                 'keyword_id.*' => 'integer', 
+            ], [
+                'site_id.required' => 'The Site field is required.',
+                'site_id.integer' => 'The Site must be a valid number.',
+                'site_id.unique' => 'The Site you entered is already taken. Please use a different one.',
             ]);
 
             $createWebsearch = Websearch::create([
@@ -101,7 +105,7 @@ class WebsearchController extends Controller
         $dataKeywordSelected = RelationKeyword::where('related_id', $id)->where('jenis', 1)->pluck('keyword_id')->toArray();
         
         return view('websearch.edit', [
-            'title' => 'Websearch',
+            'title' => 'Web Search',
             'data' => $data,
             'id' => $id,
             'dataSite' => $site,
@@ -117,6 +121,10 @@ class WebsearchController extends Controller
                 'site_id' => 'required|integer|unique:websearch,site_id,' . $id,  // Perbaikan pada validasi unique
                 'keyword_id' => 'required|array', 
                 'keyword_id.*' => 'integer', 
+            ], [
+                'site_id.required' => 'The Site field is required.',
+                'site_id.integer' => 'The Site must be a valid number.',
+                'site_id.unique' => 'The Site you entered is already taken. Please use a different one.',
             ]);
 
             $websearch = Websearch::findOrFail($id);
@@ -144,19 +152,39 @@ class WebsearchController extends Controller
     }
 
     public function destroy($id)
-    {
+    {   
+        DB::beginTransaction();
         try {
-            $relationKeyword = RelationKeyword::where('related_id', $id);
-            
-            if ($relationKeyword->exists()) {
-                $relationKeyword->delete();
+            RelationKeyword::where('related_id', $id)->where('jenis', 1)->delete();
+
+            $knowledgeGraph = Knowledgegraph::where('websearch_id', $id)->first();
+            if ($knowledgeGraph) {
+                $shortCut = Shortcut::where('knowledgegraph_id', $knowledgeGraph->id)->get();
+                $shortCutId = $shortCut->pluck('id');
+                
+                ShortcutDetail::whereIn('shortcut_id', $shortCutId)->delete();
+                
+                $shortCut->each->delete();
+                $knowledgeGraph->delete();
             }
+
+            $organic = Organic::where('websearch_id', $id)->first();
+            if ($organic) {
+                OrganicDetail::where('organic_id', $organic->id)->delete();
+                $organic->delete();
+            }
+
+            Preview::where('websearch_id', $id)->delete();
+
+            RelatedSearch::where('websearch_id', $id)->delete();
 
             $websearch = Websearch::findOrFail($id);
             $websearch->delete();
 
+            DB::commit();
             return redirect('/websearch')->with('success', 'Websearch has been deleted successfully!');
         } catch (\Exception $e) {
+            DB::rollBack();
             return redirect()->back()->with('error', 'An error occurred while trying to delete the websearch: ' . $e->getMessage());
         }
     }

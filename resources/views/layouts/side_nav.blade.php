@@ -53,32 +53,32 @@
                 </div>
             </div>
             <div class="list_sidejsx">
-                <div class="data_sidejsx {{ Request::is('image*') ? 'active' : '' }}">
-                    <a href="/image" id="Usermanagement">
+                <div class="data_sidejsx {{ Request::is('imagesearch*') ? 'active' : '' }}">
+                    <a href="/imagesearch" id="Usermanagement">
                         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
                         <span class="nav_title1">Image</span>
                     </a>
                 </div>
             </div>
             <div class="list_sidejsx">
-                <div class="data_sidejsx {{ Request::is('news*') ? 'active' : '' }}">
-                    <a href="/news" id="Usermanagement">
+                <div class="data_sidejsx {{ Request::is('newssearch*') ? 'active' : '' }}">
+                    <a href="/newssearch" id="Usermanagement">
                         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
                         <span class="nav_title1">News</span>
                     </a>
                 </div>
             </div>
             <div class="list_sidejsx">
-                <div class="data_sidejsx {{ Request::is('video*') ? 'active' : '' }}">
-                    <a href="/video" id="Usermanagement">
+                <div class="data_sidejsx {{ Request::is('videosearch*') ? 'active' : '' }}">
+                    <a href="/videosearch" id="Usermanagement">
                         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
                         <span class="nav_title1">Video</span>
                     </a>
                 </div>
             </div>
             <div class="list_sidejsx">
-                <div class="data_sidejsx {{ Request::is('maps*') ? 'active' : '' }}">
-                    <a href="/maps" id="Usermanagement">
+                <div class="data_sidejsx {{ Request::is('mapsearch*') ? 'active' : '' }}">
+                    <a href="/mapsearch" id="Usermanagement">
                         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
                         <span class="nav_title1">Maps</span>
                     </a>

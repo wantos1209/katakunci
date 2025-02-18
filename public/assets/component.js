@@ -52,17 +52,17 @@
 // });
 
 // top navbar
-// $(document).ready(function () {
-//   $(".sec_top_navbar").load("komponen/top_nav.html");
-//   $(document).on("click", ".profile_nav", function () {
-//     $(".list_menu_profile").slideToggle("fast");
-//   });
-//   $(document).on("click", function (event) {
-//     if (!$(event.target).closest(".list_menu_profile, .profile_nav").length) {
-//       $(".list_menu_profile").slideUp("fast");
-//     }
-//   });
-// });
+$(document).ready(function () {
+  //   $(".sec_top_navbar").load("komponen/top_nav.html");
+  $(document).on("click", ".profile_nav", function () {
+    $(".list_menu_profile").slideToggle("fast");
+  });
+  $(document).on("click", function (event) {
+    if (!$(event.target).closest(".list_menu_profile, .profile_nav").length) {
+      $(".list_menu_profile").slideUp("fast");
+    }
+  });
+});
 
 // dashboard
 // $(document).ready(function () {

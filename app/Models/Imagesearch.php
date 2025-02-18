@@ -7,5 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Imagesearch extends Model
 {
     protected $fillable = ['site_id'];
-    protected $table = 'imagesearch';
+    protected $table    = 'imagesearch';
+
+    public function site()
+    {
+        return $this->belongsTo(Site::class, 'site_id');
+    }
+
+    public function keywordrelation()
+    {
+        return $this->belongsToMany(Keyword::class, 'relation_keyword', 'related_id', 'keyword_id')
+                    ->withPivot('jenis')
+                    ->wherePivot('jenis', 2); 
+    }
 }

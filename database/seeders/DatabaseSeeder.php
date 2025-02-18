@@ -17,9 +17,10 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::create([
-            'name' => 'Admin',
-            'username' => 'admin',
-            'password' => Hash::make('admin'),
+            'name' => 'superadmin',
+            'username' => 'superadmin',
+            'password' => Hash::make('admin123'),
+            'divisi' => 9
         ]);
     }
 }

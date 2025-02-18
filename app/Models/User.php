@@ -18,9 +18,11 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'site_id',
         'name',
         'username',
         'password',
+        'divisi'
     ];
 
     /**
@@ -44,5 +46,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function site()
+    {
+        return $this->belongsTo(Site::class, 'site_id');
     }
 }
