@@ -9,8 +9,10 @@ use App\Models\User;
 use App\Models\UserDetail;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -42,20 +44,29 @@ class UserController extends Controller
             $request->validate([
                 'name' => 'required|string|max:255',
                 'site_id' => 'required|exists:sites,id',  
-                'divisi' => 'required|in:9,8,1',           
+                'divisi' => 'required',           
                 'username' => 'required|string|max:255|unique:users,username', 
-                'password' => 'required|string|min:8|confirmed', 
+                'password' => 'required|string|confirmed', 
+                'pathImage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
+
+            $pathImage = null;
+            if ($request->hasFile('pathImage')) {
+                $imageName = time() . '.' . $request->pathImage->extension();
+                // Store image in 'images' folder within the public disk (symlink to storage)
+                $pathImage = $request->file('pathImage')->storeAs('images', $imageName, 'public');
+            }
 
             $user = new User();
             $user->name = $request->name;
             $user->site_id = $request->site_id;
             $user->divisi = $request->divisi;
             $user->username = $request->username;
-            $user->password = Hash::make($request->password); 
-            $user->save();
-            
+            $user->password = Hash::make($request->password);
+            $user->pathImage = $pathImage; 
+
             DB::commit();
+
             return redirect('/user')->with('success', 'User has been created successfully!');
         } catch (Exception $e) {
             DB::rollBack();
@@ -82,12 +93,13 @@ class UserController extends Controller
         try {
             $request->validate([
                 'name' => 'required|string|max:255',
-                'site_id' => 'required|exists:sites,id',  
-                'divisi' => 'required|in:9,8,1',           
+                'site_id' => 'required|exists:site,id',  
+                'divisi' => 'required',           
                 'username' => 'required|string|max:255|unique:users,username,' . $id,
-                'password' => 'nullable|string|min:8|confirmed',
+                'password' => 'nullable|string|confirmed',
+                'pathImage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
-        
+            
             $user = User::findOrFail($id);
 
             $user->name = $request->name;
@@ -98,9 +110,25 @@ class UserController extends Controller
             if ($request->filled('password')) {
                 $user->password = Hash::make($request->password);
             }
+
+            if ($request->hasFile('pathImage')) {
+                $file = $request->file('pathImage');
+                // Delete old image if exists
+                if ($user->pathImage) { 
+                    Storage::disk('public')->delete($user->pathImage);
+                }
+
+                $imageName = time() . '.' . $request->pathImage->extension();
+                // Store new image in 'images' folder
+                $path = $request->file('pathImage')->storeAs('images', $imageName, 'public');
+
+                $user->pathImage = $path;
+            }
+
             $user->save();
-            
+
             DB::commit();
+
             return redirect('/user')->with('success', 'User has been updated successfully!');
         } catch (Exception $e) {
             DB::rollBack();
@@ -110,13 +138,15 @@ class UserController extends Controller
 
 
     public function destroy($id)
-    {   
+    {
         DB::beginTransaction();
         try {
-            $user = User::where('id', $id)->first();
-            if ($user) {
-                $user->delete();
+            $user = User::findOrFail($id);
+
+            if ($user->pathImage && Storage::exists($user->pathImage)) {
+                Storage::delete($user->pathImage);
             }
+            $user->delete();
 
             DB::commit();
             return redirect('/user')->with('success', 'User has been deleted successfully!');
@@ -125,4 +155,49 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'An error occurred while trying to delete the user: ' . $e->getMessage());
         }
     }
+
+    public function profile()
+    {
+        $dataUser = Auth::user();
+        return view('user.profile', [
+            'title' => 'User Management',
+            'user' => $dataUser,
+        ]);
+    }
+
+    public function updateProfile(Request $request)
+{
+    try {
+        $dataUser = Auth::user();
+        $user = User::findOrFail($dataUser->id);
+        
+        $request->validate([
+            'password' => 'nullable|string|min:8|confirmed',
+            'pathImage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        if ($request->hasFile('pathImage')) {
+            // Delete old image if exists
+            if ($user->pathImage && Storage::exists($user->pathImage)) {
+                Storage::delete($user->pathImage);
+            }
+
+            $imageName = time() . '.' . $request->pathImage->extension();
+            // Store the new image in the 'imagesProfile' folder within the public disk
+            $pathImage = $request->file('pathImage')->storeAs('imagesProfile', $imageName, 'public');
+            $user->pathImage = $pathImage;
+        }
+
+        $user->save();
+
+        return redirect('/websearch')->with('success', 'Profile updated successfully!');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'An error occurred while trying to update the profile: ' . $e->getMessage());
+    }
+}
+
 }

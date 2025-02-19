@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->integer('divisi'); // 9 superadmin , 8 admin, 1 captain
+            $table->string('pathImage')->nullable(); 
             $table->rememberToken();
             $table->timestamps();
         });

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('livechat')->nullable();
             $table->string('linkalternatif')->nullable();
             $table->timestamps();
-        });
+    });
     }
 
     /**

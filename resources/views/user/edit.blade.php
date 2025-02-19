@@ -8,7 +8,7 @@
             <h3>{{ $title }} Form</h3>
             <span>Add Data</span>
         </div>
-        <form action="/user/{{ $user->id }}" method="POST">
+        <form action="/user/edit/{{ $user->id }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="list_form">
                 <span class="sec_label">Name</span>
@@ -47,7 +47,12 @@
                 <span class="sec_label">Confirm Password</span>
                 <input type="password" id="cpassword" name="cpassword" placeholder="Input Confirm Password">
             </div>
-        
+            <div class="list_form">
+                <span class="sec_label">Gambar</span>
+                <div class="pilihan_gambar">
+                    <input type="file" id="pathImage" name="pathImage">
+                </div>
+            </div>
             <div class="sec_button_form">
                 <button class="sec_botton btn_submit" type="submit">Submit</button>
                 <a href="/user"><button type="button" class="sec_botton btn_cancel">Cancel</button></a>
